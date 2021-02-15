@@ -2,8 +2,7 @@
 
 //loaded express into project
 const express = require("express");
-
-const { request } = require("http");
+const bodyParser = require('body-parser');
 
 //set up of API
 //create a var called API
@@ -11,9 +10,13 @@ const { request } = require("http");
 //once the server is set up that call back function is going to run
 //console log (api up and running).
 const api = express();
+//dirname is path for whatever script ur writing on ur local machine
+api.use(express.static(__dirname + "/public"));
+api.use(bodyParser.json());
 
-api.use((req, res, next) =>{
-
+api.post("/add", (req, res) => {
+  console.log(req.body);
+  res.send("it's works");
 });
 
 //() => {} call back
@@ -26,10 +29,8 @@ api.listen(3000, () => {
 //when someone runs get request for specific path
 //we want to present something inside of the callback function
 
-api.get("/", (req, res) => {
-  console.log(request);
-  //when we want to send something to the user we use
-  res.send("Hello World!");
-});
-
-//
+// api.get("/", (req, res) => {
+//   console.log(request);
+//   //when we want to send something to the user we use
+//   res.send("Hello World!");
+// });
